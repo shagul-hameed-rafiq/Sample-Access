@@ -8,6 +8,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ✅ CORS — allow Angular frontend (local dev + Render production)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:4200",
+                "https://medlab-frontend.onrender.com"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 // ✅ PostgreSQL instead of SQLite
 builder.Services.AddDbContext<MedlabAinsightDbContext>(options =>
 {
@@ -31,6 +46,9 @@ using (var scope = app.Services.CreateScope())
     await db.Database.MigrateAsync();
     await Seeder.SeedAsync(db);
 }
+
+// ✅ CORS must be before MapControllers
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.MapGet("/", () => Results.Ok(new { status = "ok" }));
