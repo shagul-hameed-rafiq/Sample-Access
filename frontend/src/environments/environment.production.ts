@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://medlab-backend.onrender.com/api'
+  apiUrl: 'https://medlab-backend-j2db.onrender.com/api'
 };

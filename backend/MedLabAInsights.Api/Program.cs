@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:4200",
-                "https://medlab-frontend.onrender.com"
+                "https://medlab-frontend.onrender.com"           // ✅ confirmed Render frontend URL
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
