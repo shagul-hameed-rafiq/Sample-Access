@@ -8,41 +8,104 @@ namespace MedLabAInsights.Data.Seeding
     {
         public static async Task SeedAsync(MedlabAinsightDbContext db)
         {
-            // Swap Panel 2 (CBC) and Panel 3 (Thyroid) mapping IDs logically
-            var seed = new List<PanelTestMapping>
+            // Explicit dictionary mapping mapping PanelCode to TestCode & ImportanceLevel
+            var mappings = new Dictionary<string, Dictionary<string, int>>
             {
-                // PanelId 1 (Diabetic)
-                new() { PanelId = 1, TestId = 1, ImportanceLevel = 1 },
-                new() { PanelId = 1, TestId = 2, ImportanceLevel = 1 },
-                new() { PanelId = 1, TestId = 3, ImportanceLevel = 1 },
-                new() { PanelId = 1, TestId = 4, ImportanceLevel = 2 },
-
-                // PanelId 3 (Thyroid)
-                // Tests 5, 6, 7 are TSH, Free T3, Free T4
-                new() { PanelId = 3, TestId = 5, ImportanceLevel = 1 },
-                new() { PanelId = 3, TestId = 6, ImportanceLevel = 1 },
-                new() { PanelId = 3, TestId = 7, ImportanceLevel = 1 },
-
-                // PanelId 2 (CBC)
-                // Tests 8-17 are CBC tests
-                new() { PanelId = 2, TestId = 8,  ImportanceLevel = 1 },
-                new() { PanelId = 2, TestId = 9,  ImportanceLevel = 2 },
-                new() { PanelId = 2, TestId = 10, ImportanceLevel = 1 },
-                new() { PanelId = 2, TestId = 11, ImportanceLevel = 1 },
-                new() { PanelId = 2, TestId = 12, ImportanceLevel = 2 },
-                new() { PanelId = 2, TestId = 13, ImportanceLevel = 2 },
-                new() { PanelId = 2, TestId = 14, ImportanceLevel = 2 },
-                new() { PanelId = 2, TestId = 15, ImportanceLevel = 2 },
-                new() { PanelId = 2, TestId = 16, ImportanceLevel = 1 },
-                new() { PanelId = 2, TestId = 17, ImportanceLevel = 1 },
+                {
+                    "DIA", new Dictionary<string, int>
+                    {
+                        { "DIA_HBA1C", 1 },
+                        { "DIA_FBS", 1 },
+                        { "DIA_PPBS", 1 },
+                        { "DIA_MBGL", 2 }
+                    }
+                },
+                {
+                    "THY", new Dictionary<string, int>
+                    {
+                        { "THY_TSH", 1 },
+                        { "THY_T3",  1 },
+                        { "THY_T4",  1 }
+                    }
+                },
+                {
+                    "CBC", new Dictionary<string, int>
+                    {
+                        { "CBC_HB", 1 },
+                        { "CBC_RBC", 2 },
+                        { "CBC_WBC", 1 },
+                        { "CBC_PLT", 1 },
+                        { "CBC_MCV", 2 },
+                        { "CBC_MCH", 2 },
+                        { "CBC_MCHC", 2 },
+                        { "CBC_RDW", 2 },
+                        { "CBC_NEU", 1 },
+                        { "CBC_LYM", 1 }
+                    }
+                }
             };
 
-            // To fix the issue transparently on Render, we clear out any incorrect mappings that were seeded previously
-            var existingMappings = await db.PanelTestMappings.ToListAsync();
-            db.PanelTestMappings.RemoveRange(existingMappings);
-            await db.SaveChangesAsync();
+            var panels = await db.Panels.ToListAsync();
+            var tests = await db.Tests.ToListAsync();
+            var newMappings = new List<PanelTestMapping>();
 
-            await db.PanelTestMappings.AddRangeAsync(seed);
+            foreach (var panelMap in mappings)
+            {
+                var panelCode = panelMap.Key;
+                var testDict = panelMap.Value;
+
+                var existingPanel = panels.FirstOrDefault(p => p.PanelCode == panelCode);
+                if (existingPanel == null)
+                {
+                    // Validation: Prevent wrong assignment if Panel doesn't exist
+                    Console.WriteLine($"[Warning] Seeder could not find Panel {panelCode}");
+                    continue;
+                }
+
+                foreach (var testMap in testDict)
+                {
+                    var testCode = testMap.Key;
+                    var importance = testMap.Value;
+
+                    var existingTest = tests.FirstOrDefault(t => t.TestCode == testCode);
+                    if (existingTest == null)
+                    {
+                        // Validation: Prevent mapping if Test doesn't exist
+                        Console.WriteLine($"[Warning] Seeder could not find Test {testCode}");
+                        continue;
+                    }
+
+                    newMappings.Add(new PanelTestMapping
+                    {
+                        PanelId = existingPanel.PanelId, /* Dynamic Id Assignment */
+                        TestId = existingTest.TestId,
+                        ImportanceLevel = importance
+                    });
+                }
+            }
+
+            var existingDbMappings = await db.PanelTestMappings.ToListAsync();
+
+            // Identify mappings that are currently in DB but shouldn't be there based on new logic
+            var mappingsToRemove = existingDbMappings
+                .Where(dbM => !newMappings.Any(newM => newM.PanelId == dbM.PanelId && newM.TestId == dbM.TestId))
+                .ToList();
+
+            if (mappingsToRemove.Any())
+            {
+                db.PanelTestMappings.RemoveRange(mappingsToRemove);
+            }
+
+            // Insert only missing mappings
+            var toInsert = newMappings
+                .Where(newM => !existingDbMappings.Any(dbM => dbM.PanelId == newM.PanelId && dbM.TestId == newM.TestId))
+                .ToList();
+
+            if (toInsert.Any())
+            {
+                await db.PanelTestMappings.AddRangeAsync(toInsert);
+            }
+
             await db.SaveChangesAsync();
         }
     }

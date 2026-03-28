@@ -13,9 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Source\MetaData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Contracts\" />
+    <Folder Include="Source\" />
   </ItemGroup>
 
 </Project>

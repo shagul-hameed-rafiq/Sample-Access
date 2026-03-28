@@ -143,25 +143,21 @@ export class ReportView implements OnInit {
 
 
 
-  getSeverityLabel(severity: number): string {
-    switch (severity) {
-      case 0: return 'Normal';
-      case 1: return 'Mild';
-      case 2: return 'Moderate';
-      case 3: return 'High';
-      case 4: return 'Very High';
-      default: return 'Unknown';
-    }
+  getSeverityLabel(status: string): string {
+    return status || 'UNKNOWN';
   }
 
-  getSeverityClass(severity: number): string {
-    switch (severity) {
-      case 0: return 'severity-normal';
-      case 1: return 'severity-mild';
-      case 2: return 'severity-moderate';
-      case 3: return 'severity-high';
-      case 4: return 'severity-very-high';
-      default: return '';
+  getSeverityClass(status: string): string {
+    switch ((status || '').toUpperCase()) {
+      case 'NORMAL':        return 'severity-normal';
+      case 'LOW':           return 'severity-mild';
+      case 'HIGH':          return 'severity-high';
+      case 'PRE-DIABETIC':  return 'severity-moderate';
+      case 'DIABETIC':      return 'severity-very-high';
+      case 'CRITICAL-LOW':  return 'severity-critical';
+      case 'CRITICAL-HIGH': return 'severity-critical';
+      case 'CRITICAL':      return 'severity-critical';
+      default:              return 'severity-unknown';
     }
   }
 

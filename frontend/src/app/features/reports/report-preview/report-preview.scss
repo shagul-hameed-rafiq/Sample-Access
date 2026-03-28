@@ -168,6 +168,24 @@
       background: #fffbeb;
     }
   }
+
+  &.severity-critical {
+    border-left-color: #9f1239;
+
+    .status-indicator {
+      color: #fecdd3;
+      background: #4c0519;
+    }
+  }
+
+  &.severity-unknown {
+    border-left-color: #94a3b8;
+
+    .status-indicator {
+      color: #475569;
+      background: #f1f5f9;
+    }
+  }
 }
 
 .test-edit-header {

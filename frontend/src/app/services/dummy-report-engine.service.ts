@@ -17,8 +17,8 @@ export class DummyReportEngineService {
     ],
     2: [
       { testId: 3, testName: 'TSH', unit: 'uIU/mL', min: 0.4, max: 4.0 },
-      { testId: 4, testName: 'Free T3', unit: 'pg/mL', min: 2.3, max: 4.2 },
-      { testId: 5, testName: 'Free T4', unit: 'ng/dL', min: 0.8, max: 1.8 },
+      { testId: 4, testName: 'T3 (Total)', unit: 'ng/mL', min: 0.8, max: 2.1 },
+      { testId: 5, testName: 'T4 (Total)', unit: 'µg/dL', min: 5.0, max: 14.0 },
     ],
     3: [{ testId: 6, testName: 'Hemoglobin', unit: 'g/dL', min: 13, max: 17 }],
   };

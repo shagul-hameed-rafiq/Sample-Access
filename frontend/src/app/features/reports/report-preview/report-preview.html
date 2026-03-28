@@ -38,14 +38,14 @@
 
     <!-- Test Grid -->
     <div class="findings-grid">
-      <div *ngFor="let test of tests; let i = index" class="test-edit-card" [ngClass]="getSeverityClass(test.severity)">
+      <div *ngFor="let test of tests; let i = index" class="test-edit-card" [ngClass]="getSeverityClass(test.status)">
         <div class="test-edit-header">
           <div class="name-unit">
             <h4>{{ test.testName }}</h4>
             <span class="unit-label">{{ test.rawValue }} {{ report.tests[i]?.unit }}</span>
           </div>
-          <span class="status-indicator" [ngClass]="getSeverityClass(test.severity)">
-            {{ getSeverityLabel(test.severity) }}
+          <span class="status-indicator" [ngClass]="getSeverityClass(test.status)">
+            {{ getSeverityLabel(test.status) }}
           </span>
         </div>
 

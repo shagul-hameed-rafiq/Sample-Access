@@ -280,6 +280,18 @@
     color: #92400e;
     border: 1px solid #fef3c7;
   }
+
+  &.severity-critical {
+    background: #4c0519;
+    color: #fecdd3;
+    border: 1px solid #9f1239;
+  }
+
+  &.severity-unknown {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+  }
 }
 
 .insight-block {

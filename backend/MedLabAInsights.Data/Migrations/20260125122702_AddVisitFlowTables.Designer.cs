@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedLabAInsights.Data.Migrations
 {
     [DbContext(typeof(MedlabAinsightDbContext))]
-    [Migration("20260324170321_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260125122702_AddVisitFlowTables")]
+    partial class AddVisitFlowTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
             modelBuilder.Entity("MedLabAInsights.Models.BandRuleReport", b =>
                 {
@@ -100,6 +100,26 @@ namespace MedLabAInsights.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Member", (string)null);
+                });
+
+            modelBuilder.Entity("MedLabAInsights.Models.Panel", b =>
+                {
+                    b.Property<int>("PanelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PanelCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PanelName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PanelId");
+
+                    b.ToTable("Panel", (string)null);
                 });
 
             modelBuilder.Entity("MedLabAInsights.Models.PanelRuleSummary", b =>
@@ -348,27 +368,6 @@ namespace MedLabAInsights.Data.Migrations
                     b.ToTable("VisitTestResult", (string)null);
                 });
 
-            modelBuilder.Entity("Panel", b =>
-                {
-                    b.Property<int>("PanelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("PanelCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PanelName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("PanelId");
-
-                    b.ToTable("Panel", (string)null);
-                });
-
             modelBuilder.Entity("MedLabAInsights.Models.BandRuleReport", b =>
                 {
                     b.HasOne("MedLabAInsights.Models.Test", "Test")
@@ -382,7 +381,7 @@ namespace MedLabAInsights.Data.Migrations
 
             modelBuilder.Entity("MedLabAInsights.Models.PanelRuleSummary", b =>
                 {
-                    b.HasOne("Panel", "Panel")
+                    b.HasOne("MedLabAInsights.Models.Panel", "Panel")
                         .WithMany()
                         .HasForeignKey("PanelId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -393,7 +392,7 @@ namespace MedLabAInsights.Data.Migrations
 
             modelBuilder.Entity("MedLabAInsights.Models.PanelTestMapping", b =>
                 {
-                    b.HasOne("Panel", "Panel")
+                    b.HasOne("MedLabAInsights.Models.Panel", "Panel")
                         .WithMany()
                         .HasForeignKey("PanelId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -418,7 +417,7 @@ namespace MedLabAInsights.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Panel", "Panel")
+                    b.HasOne("MedLabAInsights.Models.Panel", "Panel")
                         .WithMany()
                         .HasForeignKey("PanelId")
                         .OnDelete(DeleteBehavior.Restrict)

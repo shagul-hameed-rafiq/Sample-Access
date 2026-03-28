@@ -1,4 +1,4 @@
-using MedLabAInsights.Data.Contexts;
+﻿using MedLabAInsights.Data.Contexts;
 using MedLabAInsights.Data.Infrastructure;
 using MedLabAInsights.Data.Seeding;
 using Microsoft.EntityFrameworkCore;

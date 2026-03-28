@@ -1,4 +1,4 @@
-﻿namespace MedLabAInsights.Api.Contracts.Reports;
+namespace MedLabAInsights.Api.Contracts.Reports;
 
 public sealed class VisitReportDto
 {
@@ -68,7 +68,14 @@ public sealed class TestReportDto
 
     public int BandId { get; init; }
     public string BandName { get; init; } = null!;
+    public string BandCode { get; init; } = null!;
     public int Severity { get; init; }
+
+    /// <summary>
+    /// Human-readable classification derived from Severity:
+    /// NORMAL | PRE-DIABETIC | DIABETIC | LOW | HIGH | CRITICAL
+    /// </summary>
+    public string Status { get; init; } = null!;
 
     public string StandardReport { get; init; } = null!;
     public string? RevisedReport { get; init; }

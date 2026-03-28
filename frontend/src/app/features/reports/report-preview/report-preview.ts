@@ -19,7 +19,7 @@ export class ReportPreview implements OnInit {
 
   // Editable fields
   panelRevisedSummary = '';
-  tests: { testId: number; testName: string; rawValue: string; bandName: string; severity: number; revisedReport: string }[] = [];
+  tests: { testId: number; testName: string; rawValue: string; bandName: string; status: string; severity: number; revisedReport: string }[] = [];
 
   finalizing = false;
   finalized = false;
@@ -90,31 +90,28 @@ export class ReportPreview implements OnInit {
       testName: t.testName,
       rawValue: t.rawValue,
       bandName: t.bandName,
+      status: t.status,
       severity: t.severity,
       revisedReport: t.revisedReport || t.standardReport || '',
     }));
   }
 
 
-  getSeverityLabel(severity: number): string {
-    switch (severity) {
-      case 0: return 'Normal';
-      case 1: return 'Mild';
-      case 2: return 'Moderate';
-      case 3: return 'High';
-      case 4: return 'Very High';
-      default: return 'Unknown';
-    }
+  getSeverityLabel(status: string): string {
+    return status || 'UNKNOWN';
   }
 
-  getSeverityClass(severity: number): string {
-    switch (severity) {
-      case 0: return 'severity-normal';
-      case 1: return 'severity-mild';
-      case 2: return 'severity-moderate';
-      case 3: return 'severity-high';
-      case 4: return 'severity-very-high';
-      default: return '';
+  getSeverityClass(status: string): string {
+    switch ((status || '').toUpperCase()) {
+      case 'NORMAL':        return 'severity-normal';
+      case 'LOW':           return 'severity-mild';
+      case 'HIGH':          return 'severity-high';
+      case 'PRE-DIABETIC':  return 'severity-moderate';
+      case 'DIABETIC':      return 'severity-very-high';
+      case 'CRITICAL-LOW':  return 'severity-critical';
+      case 'CRITICAL-HIGH': return 'severity-critical';
+      case 'CRITICAL':      return 'severity-critical';
+      default:              return 'severity-unknown';
     }
   }
 

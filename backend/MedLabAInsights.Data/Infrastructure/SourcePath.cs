@@ -4,18 +4,10 @@
     {
         public static string GetFilePath(string fileName)
         {
-            var normalized = fileName.Replace('\\', Path.DirectorySeparatorChar)
-                                     .Replace('/', Path.DirectorySeparatorChar);
-
-            var publishedPath = Path.Combine(AppContext.BaseDirectory, normalized);
-            if (File.Exists(publishedPath))
-            {
-                return publishedPath;
-            }
-
-            // Local development fallback: AppContext.BaseDirectory -> .../bin/Debug/net8.0/
+            // AppContext.BaseDirectory -> .../bin/Debug/net8.0/
+            // Move up 4 levels to reach project folder
             var projectDir = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
-            return Path.Combine(projectDir, "MedLabAInsights.Data", normalized);
+            return Path.Combine(projectDir, "MedLabAInsights.Data", fileName);
         }
     }
 }

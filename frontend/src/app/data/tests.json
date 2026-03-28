@@ -5,8 +5,8 @@
   { "testId": 4, "testName": "Mean Blood Glucose Level", "unit": "mg/dl" },
 
   { "testId": 5, "testName": "TSH", "unit": "uIU/mL" },
-  { "testId": 6, "testName": "Free T3", "unit": "pg/ml" },
-  { "testId": 7, "testName": "Free T4", "unit": "ng/dl" },
+  { "testId": 6, "testName": "T3 (Total)", "unit": "ng/mL" },
+  { "testId": 7, "testName": "T4 (Total)", "unit": "µg/dL" },
 
   { "testId": 8, "testName": "Hemoglobin", "unit": "g/dl" },
   { "testId": 9, "testName": "RBC Count", "unit": "million/µL" },

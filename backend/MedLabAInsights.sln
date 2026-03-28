@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedLabAInsights.DataGenerator", "MedLabAInsights.DataGenerator\MedLabAInsights.DataGenerator.csproj", "{75E0F73A-2967-442D-B3DD-B44583350C50}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedLabAInsights.Models", "MedLabAInsights.Models\MedLabAInsights.Models.csproj", "{E7502058-23E5-46A5-A5CD-8FA86A828CB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedLabAInsights.Api", "MedLabAInsights.Api\MedLabAInsights.Api.csproj", "{F86F298F-3F6F-4A24-8D80-D1AE219202CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedlabAInsights.ML", "MedlabAInsights.ML\MedlabAInsights.ML.csproj", "{F149B3D7-0AFC-4DF9-ACA5-1AB0628E7DE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F86F298F-3F6F-4A24-8D80-D1AE219202CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F86F298F-3F6F-4A24-8D80-D1AE219202CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F86F298F-3F6F-4A24-8D80-D1AE219202CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F149B3D7-0AFC-4DF9-ACA5-1AB0628E7DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F149B3D7-0AFC-4DF9-ACA5-1AB0628E7DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F149B3D7-0AFC-4DF9-ACA5-1AB0628E7DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F149B3D7-0AFC-4DF9-ACA5-1AB0628E7DE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

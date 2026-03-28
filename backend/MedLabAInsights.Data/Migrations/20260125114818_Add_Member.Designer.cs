@@ -3,6 +3,7 @@ using System;
 using MedLabAInsights.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedLabAInsights.Data.Migrations
 {
     [DbContext(typeof(MedlabAinsightDbContext))]
-    partial class MedlabAInsightDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260125114818_Add_Member")]
+    partial class Add_Member
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -221,150 +224,6 @@ namespace MedLabAInsights.Data.Migrations
                     b.ToTable("Test", (string)null);
                 });
 
-            modelBuilder.Entity("MedLabAInsights.Models.Visit", b =>
-                {
-                    b.Property<int>("VisitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Diastolic")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Height")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(2000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PanelId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Systolic")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("VisitDateTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Weight")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("VisitId");
-
-                    b.HasIndex("PanelId");
-
-                    b.HasIndex("MemberId", "VisitDateTime");
-
-                    b.ToTable("Visit", (string)null);
-                });
-
-            modelBuilder.Entity("MedLabAInsights.Models.VisitPanelSummary", b =>
-                {
-                    b.Property<int>("VisitPanelSummaryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("EvaluatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsRevised")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PanelRuleId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("RevisedSummary")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StandardSummarySnapshot")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("VisitId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("VisitPanelSummaryId");
-
-                    b.HasIndex("EvaluatedAt");
-
-                    b.HasIndex("PanelRuleId");
-
-                    b.HasIndex("VisitId")
-                        .IsUnique();
-
-                    b.ToTable("VisitPanelSummary", (string)null);
-                });
-
-            modelBuilder.Entity("MedLabAInsights.Models.VisitTestInterpretation", b =>
-                {
-                    b.Property<int>("VisitTestInterpretationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BandId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("EvaluatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsRevised")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("RevisedReport")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StandardReportSnapshot")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("VisitTestResultId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("VisitTestInterpretationId");
-
-                    b.HasIndex("BandId");
-
-                    b.HasIndex("EvaluatedAt");
-
-                    b.HasIndex("VisitTestResultId")
-                        .IsUnique();
-
-                    b.ToTable("VisitTestInterpretation", (string)null);
-                });
-
-            modelBuilder.Entity("MedLabAInsights.Models.VisitTestResult", b =>
-                {
-                    b.Property<int>("VisitTestResultId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("EnteredAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RawValue")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("VisitId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("VisitTestResultId");
-
-                    b.HasIndex("TestId");
-
-                    b.HasIndex("VisitId", "TestId")
-                        .IsUnique();
-
-                    b.ToTable("VisitTestResult", (string)null);
-                });
-
             modelBuilder.Entity("MedLabAInsights.Models.BandRuleReport", b =>
                 {
                     b.HasOne("MedLabAInsights.Models.Test", "Test")
@@ -404,82 +263,6 @@ namespace MedLabAInsights.Data.Migrations
                     b.Navigation("Panel");
 
                     b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("MedLabAInsights.Models.Visit", b =>
-                {
-                    b.HasOne("MedLabAInsights.Models.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MedLabAInsights.Models.Panel", "Panel")
-                        .WithMany()
-                        .HasForeignKey("PanelId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Member");
-
-                    b.Navigation("Panel");
-                });
-
-            modelBuilder.Entity("MedLabAInsights.Models.VisitPanelSummary", b =>
-                {
-                    b.HasOne("MedLabAInsights.Models.PanelRuleSummary", "PanelRuleSummary")
-                        .WithMany()
-                        .HasForeignKey("PanelRuleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MedLabAInsights.Models.Visit", "Visit")
-                        .WithMany()
-                        .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PanelRuleSummary");
-
-                    b.Navigation("Visit");
-                });
-
-            modelBuilder.Entity("MedLabAInsights.Models.VisitTestInterpretation", b =>
-                {
-                    b.HasOne("MedLabAInsights.Models.BandRuleReport", "BandRuleReport")
-                        .WithMany()
-                        .HasForeignKey("BandId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MedLabAInsights.Models.VisitTestResult", "VisitTestResult")
-                        .WithMany()
-                        .HasForeignKey("VisitTestResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BandRuleReport");
-
-                    b.Navigation("VisitTestResult");
-                });
-
-            modelBuilder.Entity("MedLabAInsights.Models.VisitTestResult", b =>
-                {
-                    b.HasOne("MedLabAInsights.Models.Test", "Test")
-                        .WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MedLabAInsights.Models.Visit", "Visit")
-                        .WithMany()
-                        .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Test");
-
-                    b.Navigation("Visit");
                 });
 #pragma warning restore 612, 618
         }

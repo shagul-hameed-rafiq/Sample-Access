@@ -331,35 +331,35 @@
     "minRange": 0,
     "maxRange": 1.49,
     "severity": 0,
-    "interpretation": "Free T3 critically low — severe thyroid underactivity; seek evaluation."
+    "interpretation": "T3 Total critically low — severe thyroid underactivity; seek evaluation."
   },
   {
     "testId": 6,
     "minRange": 1.5,
     "maxRange": 2.19,
     "severity": 1,
-    "interpretation": "Free T3 low — may indicate hypothyroidism or low hormone conversion."
+    "interpretation": "T3 Total low — may indicate hypothyroidism or low hormone conversion."
   },
   {
     "testId": 6,
     "minRange": 2.2,
     "maxRange": 4.2,
     "severity": 2,
-    "interpretation": "Free T3 normal — healthy active thyroid hormone levels."
+    "interpretation": "T3 Total normal — healthy active thyroid hormone levels."
   },
   {
     "testId": 6,
     "minRange": 4.21,
     "maxRange": 6,
     "severity": 3,
-    "interpretation": "Free T3 high — possible hyperthyroidism; review with your doctor."
+    "interpretation": "T3 Total high — possible hyperthyroidism; review with your doctor."
   },
   {
     "testId": 6,
     "minRange": 6.01,
     "maxRange": 20,
     "severity": 4,
-    "interpretation": "Free T3 very high — strong thyroid overactivity; urgent evaluation advised."
+    "interpretation": "T3 Total very high — strong thyroid overactivity; urgent evaluation advised."
   },
 
   {
@@ -367,35 +367,35 @@
     "minRange": 0,
     "maxRange": 0.49,
     "severity": 0,
-    "interpretation": "Free T4 critically low — severe hypothyroidism; immediate medical review needed."
+    "interpretation": "T4 Total critically low — severe hypothyroidism; immediate medical review needed."
   },
   {
     "testId": 7,
     "minRange": 0.5,
     "maxRange": 0.89,
     "severity": 1,
-    "interpretation": "Free T4 low — underactive thyroid suggested; discuss treatment."
+    "interpretation": "T4 Total low — underactive thyroid suggested; discuss treatment."
   },
   {
     "testId": 7,
     "minRange": 0.9,
     "maxRange": 1.7,
     "severity": 2,
-    "interpretation": "Free T4 normal — healthy thyroid hormone levels."
+    "interpretation": "T4 Total normal — healthy thyroid hormone levels."
   },
   {
     "testId": 7,
     "minRange": 1.71,
     "maxRange": 2.5,
     "severity": 3,
-    "interpretation": "Free T4 high — possible hyperthyroidism or medication overdose."
+    "interpretation": "T4 Total high — possible hyperthyroidism or medication overdose."
   },
   {
     "testId": 7,
     "minRange": 2.51,
     "maxRange": 10,
     "severity": 4,
-    "interpretation": "Free T4 very high — severe hyperthyroidism; urgent assessment required."
+    "interpretation": "T4 Total very high — severe hyperthyroidism; urgent assessment required."
   },
 
   {
